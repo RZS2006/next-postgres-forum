@@ -1,14 +1,34 @@
 'use client';
 
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+
+interface Post {
+  title: string;
+  content: string;
+}
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
 
+  const createPost = useMutation({
+    mutationFn: async (post: Post) => {
+      await axios.post('/api/posts', post);
+    },
+  });
+
+  const submitPost = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setIsDisabled(true);
+    createPost.mutate({ title, content });
+  };
+
   return (
-    <form action="" className="flex flex-col gap-2">
+    <form onSubmit={submitPost} className="flex flex-col gap-2">
       <input
         type="text"
         placeholder="Title"
