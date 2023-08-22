@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
@@ -17,7 +18,7 @@ const Navbar = async () => {
         {session?.user ? (
           <div className="flex items-center gap-2">
             {session.user.name}
-            <img
+            <Image
               src={session.user.image as string}
               alt=""
               height={32}
