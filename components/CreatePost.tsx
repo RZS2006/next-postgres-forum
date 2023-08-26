@@ -14,6 +14,7 @@ const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
+  let toastId: string;
 
   const createPost = useMutation({
     mutationFn: async (post: Post) => {
@@ -24,11 +25,13 @@ const CreatePost = () => {
       setTitle('');
       setContent('');
       setIsDisabled(false);
-      toast.success('A new post has been created 🚀');
+      toast.remove(toastId);
+      toast.success('A new post has been created 🚀', { id: toastId });
     },
     onError: (error: any) => {
       if (error instanceof AxiosError) {
-        toast.error(error?.response?.data.message);
+        toast.remove(toastId);
+        toast.error(error?.response?.data.message, { id: toastId });
       }
       console.log(error);
       setIsDisabled(false);
@@ -38,6 +41,7 @@ const CreatePost = () => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    toastId = toast.loading('Creating a post...', { id: toastId });
     setIsDisabled(true);
     createPost.mutate({ title, content });
   };
