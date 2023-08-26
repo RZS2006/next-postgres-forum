@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import toast from 'react-hot-toast';
 
 interface Post {
   title: string;
@@ -23,8 +24,12 @@ const CreatePost = () => {
       setTitle('');
       setContent('');
       setIsDisabled(false);
+      toast.success('A new post has been created 🚀');
     },
-    onError: (error) => {
+    onError: (error: any) => {
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data.message);
+      }
       console.log(error);
       setIsDisabled(false);
     },

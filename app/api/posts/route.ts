@@ -40,7 +40,7 @@ export async function POST(req: any, res: any) {
     );
   }
 
-  if (body.content > 500) {
+  if (body.content.length > 500) {
     return NextResponse.json(
       { message: 'You must write a shorter post.' },
       {
