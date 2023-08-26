@@ -18,9 +18,19 @@ const CreatePost = () => {
     mutationFn: async (post: Post) => {
       await axios.post('/api/posts', post);
     },
+    onSuccess: (data) => {
+      console.log(data);
+      setTitle('');
+      setContent('');
+      setIsDisabled(false);
+    },
+    onError: (error) => {
+      console.log(error);
+      setIsDisabled(false);
+    },
   });
 
-  const submitPost = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     setIsDisabled(true);
@@ -28,7 +38,7 @@ const CreatePost = () => {
   };
 
   return (
-    <form onSubmit={submitPost} className="flex flex-col gap-2">
+    <form onSubmit={onSubmit} className="flex flex-col gap-2">
       <input
         type="text"
         placeholder="Title"
