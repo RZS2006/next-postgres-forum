@@ -11,19 +11,21 @@ const Navbar = async () => {
 
   return (
     <nav className="bg-violet-200 py-4">
-      <div className="container mx-auto flex justify-between px-4">
+      <div className="container mx-auto flex items-center justify-between px-4">
         <Link href="/" className="font-bold">
           Forum
         </Link>
         {session?.user ? (
-          <div className="flex items-center gap-2">
-            {session.user.name}
-            <Image
-              src={session.user.image as string}
-              alt=""
-              height={32}
-              width={32}
-            />
+          <div className="flex gap-4">
+            <Link href={'/dashboard'} className="flex items-center gap-4">
+              {session.user.name}
+              <Image
+                src={session.user.image as string}
+                alt=""
+                height={32}
+                width={32}
+              />
+            </Link>
             <LogoutButton />
           </div>
         ) : (
