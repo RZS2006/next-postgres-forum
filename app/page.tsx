@@ -1,6 +1,7 @@
 'use client';
 
 import CreatePost from '@/components/CreatePost';
+import Post from '@/components/Post';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 
@@ -14,8 +15,6 @@ export default function Home() {
 
   if (error) return 'An error has occurred';
 
-  console.log(data?.data);
-
   return (
     <main className="min-h-screen">
       <div className="container mx-auto px-4">
@@ -23,6 +22,10 @@ export default function Home() {
           Welcome!
         </h1>
         <CreatePost />
+        <h2 className="text-2xl font-semibold">Posts</h2>
+        <section className="flex flex-col gap-4">
+          {data?.data.map((post: any) => <Post key={post.id} post={post} />)}
+        </section>
       </div>
     </main>
   );
