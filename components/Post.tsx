@@ -4,9 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Post = ({ post }: any) => {
-  const { id, user, title, content, createdAt } = post;
+  const { id, user, title, content, createdAt, comments } = post;
 
-  console.log(createdAt);
+  console.log(post);
 
   return (
     <article className="flex flex-col gap-2 bg-zinc-100 p-4">
@@ -15,6 +15,7 @@ const Post = ({ post }: any) => {
       <h3 className="font-semibold">{title}</h3>
       <p>{content}</p>
       <p>{new Date(createdAt).toLocaleDateString()}</p>
+      <p>{comments.length} comment(s)</p>
       <Link href={`/posts/${id}`} className="font-semibold text-violet-800">
         Read More
       </Link>
