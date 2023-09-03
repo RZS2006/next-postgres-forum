@@ -4,6 +4,27 @@ import { authOptions } from '../auth/[...nextauth]/route';
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
+export async function GET(req: any, res: any) {
+  try {
+    const data = await prisma.post.findMany({
+      include: {
+        user: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    return NextResponse.json(data);
+  } catch {
+    return NextResponse.json(
+      { message: 'An error occurred while fetching the posts.' },
+      {
+        status: 500,
+      }
+    );
+  }
+}
+
 export async function POST(req: any, res: any) {
   const body = await req.json();
 
