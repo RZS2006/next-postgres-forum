@@ -16,7 +16,7 @@ const Post = ({ post }: any) => {
       <p>{content}</p>
       <p>{new Date(createdAt).toLocaleDateString()}</p>
       <p>{comments.length} comment(s)</p>
-      <Link href={`/posts/${id}`} className="font-semibold text-violet-800">
+      <Link href={`/post/${id}`} className="font-semibold text-violet-800">
         Read More
       </Link>
     </article>
