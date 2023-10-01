@@ -21,7 +21,7 @@ const AddComment = ({ id }: any) => {
       setIsDisabled(false);
       toast.remove(toastId);
       toast.success('A new comment has been created 🚀', { id: toastId });
-      queryClient.invalidateQueries(['posts']);
+      queryClient.invalidateQueries(['post']);
     },
     onError: (error: any) => {
       if (error instanceof AxiosError) {

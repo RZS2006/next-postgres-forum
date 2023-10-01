@@ -1,6 +1,7 @@
 'use client';
 
 import Post from '@/components/Post';
+import Comment from '@/components/Comment';
 import AddComment from '@/components/AddComment';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -22,6 +23,11 @@ export default function PostPage(url: any) {
       <div className="container mx-auto px-4">
         <h1 className="text-3xl font-semibold">This a post!</h1>
         <Post key={data?.data.id} post={data?.data} />
+        <h2 className="text-2xl font-semibold">Comments</h2>
+        {data?.data.comments.map((comment: any) => (
+          <Comment key={comment.id} comment={comment} />
+        ))}
+        <h2 className="text-2xl font-semibold">Add Comment</h2>
         <AddComment id={data?.data.id} />
       </div>
     </main>

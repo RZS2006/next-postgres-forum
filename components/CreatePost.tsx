@@ -28,7 +28,7 @@ const CreatePost = () => {
       setIsDisabled(false);
       toast.remove(toastId);
       toast.success('A new post has been created 🚀', { id: toastId });
-      queryClient.invalidateQueries(['post']);
+      queryClient.invalidateQueries(['posts']);
     },
     onError: (error: any) => {
       if (error instanceof AxiosError) {
