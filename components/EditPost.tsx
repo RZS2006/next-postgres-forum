@@ -9,6 +9,7 @@ import Link from 'next/link';
 const EditPost = ({ post }: any) => {
   const { id, user, title, content, createdAt, comments } = post;
   const queryClient = useQueryClient();
+  let toastId: string;
 
   const deletePost = useMutation({
     mutationFn: async (id: string) => {
@@ -16,18 +17,21 @@ const EditPost = ({ post }: any) => {
     },
     onSuccess: (data) => {
       console.log(data);
-      toast.success('Post has been deleted.');
+      toast.remove(toastId);
+      toast.success('Post has been deleted.', { id: toastId });
       queryClient.invalidateQueries(['userPosts']);
     },
     onError: (error: any) => {
       if (error instanceof AxiosError) {
-        toast.error(error?.response?.data.message);
+        toast.remove(toastId);
+        toast.error(error?.response?.data.message, { id: toastId });
       }
       console.log(error);
     },
   });
 
   const onDelete = () => {
+    toastId = toast.loading('Deleting post...', { id: toastId });
     deletePost.mutate(id);
   };
 
